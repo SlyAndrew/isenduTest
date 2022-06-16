@@ -1,0 +1,44 @@
+{
+  "name": "isenduTest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "compose": "docker run --rm --env NETWORK -v ${PWD}:${PWD} -v /var/run/docker.sock:/var/run/docker.sock docker/compose:1.24.1 -p $npm_package_name -f ${PWD}/test/compose.yml",
+    "initialize": "node test/initializeDB/initialize.js",
+    "serve-mongodb": "npm run compose -- up -d mongodb",
+    "integration-test": "node_modules/.bin/mocha test/Integrationtest/*.test.js",
+    "serve": "npm run serve-mongodb && npm run initialize",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlyAndrew/isenduTest.git"
+  },
+  "author": "Andrea Nappo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SlyAndrew/isenduTest/issues"
+  },
+  "homepage": "https://github.com/SlyAndrew/isenduTest#readme",
+  "dependencies": {
+    "chai": "^4.3.6",
+    "eslint": "7.15.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-mocha": "8.0.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-security": "1.4.0",
+    "fastify": "^3.27.1",
+    "fastify-helmet": "^7.0.1",
+    "mocha": "^9.2.0",
+    "mongoose": "^6.2.0",
+    "sinon": "^13.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.3"
+  }
+}
